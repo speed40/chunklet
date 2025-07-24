@@ -1,9 +1,25 @@
 # 📦 Chunklet: Smart Multilingual Text Chunker
 
+![Version](https://img.shields.io/badge/version-1.0.4-blue)
+![Stability](https://img.shields.io/badge/stability-stable-brightgreen)
+![License: MIT](https://img.shields.io/badge/license-MIT-yellow)
+
 > Chunk smarter, not harder — built for LLMs, RAG pipelines, and beyond.  
 **Author:** Speed k.  
-**Version:** 1.0.2  
+**Version:** 1.0.4 (🎉 first stable release)  
 **License:** MIT
+
+---
+
+## 🚀 What’s New in v1.0.4 (Stable)
+
+- ✅ **Stable Release:** v1.0.4 marks the first fully stable version after extensive refactoring.
+- 🔄 **Multiple Refactor Steps:** Core code reorganized for clarity, maintainability, and performance.
+- ➿ **True Clause-Level Overlap:** Overlap now occurs on natural clause boundaries (commas, semicolons, etc.) instead of just sentences, preserving semantic flow better.
+- 🛠️ **Improved Chunking Logic:** Enhanced fallback splitters and overlap calculations to handle edge cases gracefully.
+- ⚡ **Optimized Batch Processing:** Parallel chunking now consistently respects token counters and offsets.
+- 🧪 **Expanded Test Suite:** Comprehensive tests added for multilingual support, caching, and chunk correctness.
+- 🧹 **Cleaner Output:** Logging filters and redundant docstrings removed to reduce noise during runs.
 
 ---
 
@@ -13,7 +29,7 @@ Feature | Why it’s elite
 --------|----------------
 ⛓️ **Hybrid Mode** | Combines token + sentence limits with guaranteed overlap — rare even in commercial stacks.  
 🌐 **Multilingual Fallbacks** | CRF > Moses > Regex, with dynamic confidence detection.  
-➿ **Contextual Overlap** | `overlap_fraction` preserves semantic flow between chunks.  
+➿ **Clause-Level Overlap** | `overlap_percent` now operates at the **clause level**, preserving semantic flow across chunks using `, ; …` logic.  
 ⚡ **Parallel Batch Processing** | Multi-core acceleration with `mpire`.  
 ♻️ **LRU Caching** | Smart memoization via `functools.lru_cache`.  
 🪄 **Pluggable Token Counters** | Swap in GPT-2, BPE, or your own tokenizer.
@@ -26,7 +42,7 @@ Pick your flavor:
 
 - `"sentence"` — chunk by sentence count only  
 - `"token"` — chunk by token count only  
-- `"hybrid"` — sentence + token thresholds respected  
+- `"hybrid"` — sentence + token thresholds respected with guaranteed overlap  
 
 ---
 
@@ -37,7 +53,7 @@ Pick your flavor:
 ```bash
 git clone https://github.com/speed40/chunklet.git
 cd chunklet
-pip install -r requirements.txt
+pip install requirements
 # or manually
 pip install mpire loguru sentence-splitter sentsplit langid
 ```
@@ -63,7 +79,7 @@ chunks = chunker.chunk(
     mode="hybrid",
     max_tokens=20,
     max_sentences=5,
-    overlap_fraction=0.3
+    overlap_percent=30
 )
 
 for i, chunk in enumerate(chunks):
@@ -86,7 +102,7 @@ results = chunker.batch_chunk(
     mode="hybrid",
     max_tokens=15,
     max_sentences=4,
-    overlap_fraction=0.2,
+    overlap_percent=20,
     n_jobs=2
 )
 
@@ -113,14 +129,15 @@ chunker = Chunklet(token_counter=gpt2_token_count)
 
 🧪 Planned Features
 
-[ ] PDF/text/code content splitter support
+[ ] PDF splitter with metadata
+[ ] code splitting based on interest point
 [ ] CLI interface with --file, --mode, --overlap, etc.
 [ ] Named chunking presets: "all", "random_gap" for downstream control
 
 
 ---
 
-🌍 Language Support (27+)
+🌍 Language Support (30+)
 
 - CRF-based: en, fr, de, it, ru, zh, ja, ko, pt, tr, etc.
 - Heuristic-based: es, nl, da, fi, no, sv, cs, hu, el, ro, etc.
@@ -129,11 +146,10 @@ chunker = Chunklet(token_counter=gpt2_token_count)
 
 ---
 
-## 🔗 Related Projects
+## 💡Projects that inspire me
 
 | Tool                      | Description                                                                                      |
 |---------------------------|--------------------------------------------------------------------------------------------------|
-| [**Jina Segmenter**](https://github.com/jina-ai/segmenter) | DL-based multilingual segmenter for paragraphs and sentences.         |
 | [**Semchunk**](https://github.com/cocktailpeanut/semchunk)  | Semantic-aware chunking using transformer embeddings.                  |
 | [**CintraAI Code Chunker**](https://github.com/CintraAI/code-chunker) | AST-based code chunker for intelligent code splitting.                 |
 
@@ -152,4 +168,4 @@ chunker = Chunklet(token_counter=gpt2_token_count)
 
 📜 License
 
-> MIT License. Use freely, modify boldly, and credit like a legend.
+> MIT License. Use freely, modify boldly, and credit the legend (me. Just kidding!)

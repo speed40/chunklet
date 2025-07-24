@@ -1,7 +1,7 @@
 # Core Project Metadata
 [project]
 name = "chunklet"
-version = "1.0.2"
+version = "1.0.4"
 description = "A smart multilingual text chunker for LLMs, RAG, and beyond."
 authors = [
   { name = "Speed k.", email = "speedy40115719@gmail.com" }
@@ -10,12 +10,10 @@ license = "MIT"
 readme = "README.md"
 requires-python = ">=3.9"
 
-# Removed deprecated license classifier to fix setuptools error
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "Intended Audience :: Science/Research",
-  # "License :: OSI Approved :: MIT License",  <-- Removed this line
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",

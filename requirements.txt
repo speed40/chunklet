@@ -1,0 +1,5 @@
+mpire>=2.10.0
+loguru>=0.7.2
+sentence-splitter>=1.4
+sentsplit>=0.0.7
+slangid>=1.1.6
